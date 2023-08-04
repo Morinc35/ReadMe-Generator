@@ -1,125 +1,119 @@
-// TODO: Include packages needed for this application
-const inquirer = requier("inquirer")
+const inquirer = require('inquirer');
 const fs = require('fs');
-// TODO: Create an array of questions for user input
+
 const questions = [
-    {
-        type: 'input',
-        name: 'title',
-        message: 'What is the title of your repository?',
-    },
-    {
-        type: 'input',
-        name: 'description',
-        message: 'What is the basic function of your program?',
-    },
-    {
-        type: 'input',
-        name: 'installation',
-        message: 'How do you Install your Project?',
-    },
-    {
-        type: 'input',
-        name: 'usage',
-        message: 'Please enter usage information.',
-    },
-    {
-        type: 'list',
-        name: 'licnese',
-        message: 'What license did you use for your project?',
-        choices: [
-            'MIT',
-            'Mozilla',
-            'SIL',
-        ]
-    },
-    {
-        type: 'input',
-        name: 'contribution',
-        message: 'What are the contribution guidelines',
-
-    },
-    {
-        type: 'input',
-        name: 'githubName',
-        message: 'Enter your Github Username',
-
-    },
-    {
-        type: 'input',
-        name: 'email',
-        message: 'Please enter your email',
-
-    },
-]
+  {
+    type: 'input',
+    name: 'title',
+    message: 'Please enter the project title:',
+  },
+  {
+    type: 'input',
+    name: 'description',
+    message: 'Please enter a project description:',
+  },
+  {
+    type: 'list',
+    name: 'license',
+    message: 'Choose a license:',
+    choices: ['MIT', 'Mozilla', 'SIL'],
+  },
+  {
+    type: 'input',
+    name: 'installation',
+    message: 'Please enter installation instructions:',
+  },
+  {
+    type: 'input',
+    name: 'usage',
+    message: 'Please enter usage information:',
+  },
+  {
+    type: 'input',
+    name: 'contributing',
+    message: 'Please enter contributing guidelines:',
+  },
+  {
+    type: 'input',
+    name: 'tests',
+    message: 'Enter test instructions:',
+  },
+  {
+    type: 'input',
+    name: 'githubUsername',
+    message: 'Please enter your GitHub username:',
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Please enter your email address:',
+  },
+];
 
 function writeToFile(fileName, data) {
     fs.writeFileSync(fileName, data);
 }
 
-function init() {
-    inquirer
-        .prompt(questions)
-        .then(answers) => {
-        let licenseChoice = `${answers.license}`;
-        let licenseLink = '';
-        if (licenseChoice = 'MIT') {
-            licenseChoice = 'MIT';
-            licenseLink = 'https://img.shields.io/badge/License-MIT-yellow.svg'
-        }
-        if (licenseChoice = 'Mozilla') {
-            licenseChoice = 'Mozilla';
-            licenseLink = 'https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg'
-        }
-        if (licenseChoice = 'SIL') {
-            licenseChoice = 'SIL';
-            licenseLink = 'https://img.shields.io/badge/License-OFL_1.1-lightgreen.svg'
-        }
-        let readMe = `
+function init(){
+inquirer
+  .prompt(questions)
+  .then((answers) => {
+    let licenseChoice = `${answers.license}`;
+    let licenseLink = '';
+
+    if (licenseChoice === 'MIT') {
+      licenseLink = 'https://img.shields.io/badge/License-MIT-yellow.svg';
+    } else if (licenseChoice === 'Mozilla') {
+      licenseLink = 'https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg';
+    } else if (licenseChoice === 'SIL') {
+      licenseLink = 'https://img.shields.io/badge/License-OFL_1.1-lightgreen.svg';
+    }
+
+    let readMe = `
         
-        # ${data.title}
+# ${answers.title}
 
-        ## Description
+## Description
       
-        ${data.description}
+${answers.description}
       
-        ![badge](https://img.shields.io/badge/license-${licenseChoice}-brightorange)
+![badge](${licenseLink})
       
-        Find more badges at [sheilds.io](https://sheilds.io)
+Find more badges at [shields.io](https://shields.io)
 
-    ## Table of Contents 
-    -[Installation](#installation)
-    -[Usage](#usage)
-    -[License](#license)
-    -[Contributing](#Contributing)
-    -[Tests](#tests)
-    -[Questions](#questions)
+## Table of Contents 
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#Contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
-    ## Installation
-${data.installation}
+## Installation
+${answers.installation}
 
 ## Usage
-${data.usage}
+${answers.usage}
 
 ## Contributing
-${data.contributing}
+${answers.contributing}
 
 ## Tests
-${data.tests}
+${answers.tests}
 
 ## Questions
 For any questions or concerns, please reach out to me through the following contact information:
 
-- Github: [${data.githubUsername}](https://github.com/${answers.githubUsername})
-- Email: ${data.email}
+- Github: [${answers.githubUsername}](https://github.com/${answers.githubUsername})
+- Email: ${answers.email}
 `;
 
-        writeToFile('README.md', readMe);
-        console.log('README.md created successfully');
-    }
-.catch ((error) => {
-        console.error('Error:', error);
-    });
+    writeToFile('README.md', readMe);
+    console.log('README.md created successfully');
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 init();
