@@ -19,16 +19,17 @@ Find more badges at [shields.io](https://shields.io)
 - [Questions](#questions)
 
 ## Installation
-Installation insctructions
+this will require the user to download Node.js, and NPM packages: Inquierer and fs.
 
 ## Usage
-usage instructions
+Open your terminal and run the command "node index.js" and see the MAGIC :D
+Live demonstration is found here 
 
 ## Contributing
-contribution guidelines
+Please contribute as much as you would like.
 
 ## Tests
-test instructions
+Feel free to run as many tests as you would like.
 
 ## Questions
 For any questions or concerns, please reach out to me through the following contact information:
