@@ -1,121 +1,125 @@
 // TODO: Include packages needed for this application
 const inquirer = requier("inquirer")
+const fs = require('fs');
 // TODO: Create an array of questions for user input
-const questions = [ 
-    type: 'input';
-    name: 'title';
-    message:'What is the Title of your project?';
-      validate:  => {
-      if ('title') {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
+const questions = [
     {
-    type: 'checkbox';
-    name: 'Table of Contents';
-    message: 'choose from the options below to include in your Table of Contents';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Description';
-    message: 'What is the basic function of your project?';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Installation';
-    message: 'What is the Title of your Readme?';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Usage Information';
-    message 'What is the Title of your Readme?';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Contributing';
-    message: 'Who contributed to this project? Please include your GitHub username.';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Tests';
-    message: 'What is the Title of your Readme?';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'input';
-    name: 'Questions';
-    message: 'Please include your email address, and a brief mesaage on how to contact you for further questions';
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-  }
-  {
-    type: 'list';
-    name: 'Licensing';
-    message: 'Please choose which license you used from the choices below.';
-    choices: ['MIT', ]
-    validate:  => {
-      if () {
-        return true;
-        else {
-          console.log(Please enter);
-          return false;
-        }
-      }];
+        type: 'input',
+        name: 'title',
+        message: 'What is the title of your repository?',
+    },
+    {
+        type: 'input',
+        name: 'description',
+        message: 'What is the basic function of your program?',
+    },
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'How do you Install your Project?',
+    },
+    {
+        type: 'input',
+        name: 'usage',
+        message: 'Please enter usage information.',
+    },
+    {
+        type: 'list',
+        name: 'licnese',
+        message: 'What license did you use for your project?',
+        choices: [
+            'MIT',
+            'Mozilla',
+            'SIL',
+        ]
+    },
+    {
+        type: 'input',
+        name: 'contribution',
+        message: 'What are the contribution guidelines',
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+    },
+    {
+        type: 'input',
+        name: 'githubName',
+        message: 'Enter your Github Username',
 
-// TODO: Create a function to initialize app
-function init() {}
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Please enter your email',
 
-// Function call to initialize app
+    },
+]
+
+function writeToFile(fileName, data) {
+    fs.writeFileSync(fileName, data);
+}
+
+function init() {
+    inquirer
+        .prompt(questions)
+        .then(answers) => {
+        let licenseChoice = `${answers.license}`;
+        let licenseLink = '';
+        if (licenseChoice = 'MIT') {
+            licenseChoice = 'MIT';
+            licenseLink = 'https://img.shields.io/badge/License-MIT-yellow.svg'
+        }
+        if (licenseChoice = 'Mozilla') {
+            licenseChoice = 'Mozilla';
+            licenseLink = 'https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg'
+        }
+        if (licenseChoice = 'SIL') {
+            licenseChoice = 'SIL';
+            licenseLink = 'https://img.shields.io/badge/License-OFL_1.1-lightgreen.svg'
+        }
+        let readMe = `
+        
+        # ${data.title}
+
+        ## Description
+      
+        ${data.description}
+      
+        ![badge](https://img.shields.io/badge/license-${licenseChoice}-brightorange)
+      
+        Find more badges at [sheilds.io](https://sheilds.io)
+
+    ## Table of Contents 
+    -[Installation](#installation)
+    -[Usage](#usage)
+    -[License](#license)
+    -[Contributing](#Contributing)
+    -[Tests](#tests)
+    -[Questions](#questions)
+
+    ## Installation
+${data.installation}
+
+## Usage
+${data.usage}
+
+## Contributing
+${data.contributing}
+
+## Tests
+${data.tests}
+
+## Questions
+For any questions or concerns, please reach out to me through the following contact information:
+
+- Github: [${data.githubUsername}](https://github.com/${answers.githubUsername})
+- Email: ${data.email}
+`;
+
+        writeToFile('README.md', readMe);
+        console.log('README.md created successfully');
+    }
+.catch ((error) => {
+        console.error('Error:', error);
+    });
+}
+
 init();
