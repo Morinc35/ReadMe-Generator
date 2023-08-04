@@ -1,10 +1,10 @@
 
         
-# Readme generator
+# Readme Generator
 
 ## Description
       
-This is a generator that will create a Readme
+Test Description
       
 ![badge](https://img.shields.io/badge/License-MIT-yellow.svg)
       
@@ -19,20 +19,19 @@ Find more badges at [shields.io](https://shields.io)
 - [Questions](#questions)
 
 ## Installation
-this will require the user to download Node.js, and NPM packages: Inquierer and fs.
+Test Instruction
 
 ## Usage
-Open your terminal and run the command "node index.js" and see the MAGIC :D
-Live demonstration is found here 
+Test Usage
 
 ## Contributing
-Please contribute as much as you would like.
+Test Guidelines
 
 ## Tests
-Feel free to run as many tests as you would like.
+Test Instructions
 
 ## Questions
 For any questions or concerns, please reach out to me through the following contact information:
 
-- Github: [morinc35](https://github.com/morinc35)
+- Github: [Morinc35](https://github.com/Morinc35)
 - Email: Morinc35@gmail.com
